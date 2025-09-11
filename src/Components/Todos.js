@@ -73,7 +73,7 @@ class Todos extends Component {
                     {this.state.todos.map((todo, index) => (
                         <li key={index} style={styles.listItem}>
                             <input type="checkbox" checked={todo.completed} onChange={() => this.toggleComplete(index)} />
-                            <span style={{ marginLeft: "8px", textDecoration: this.toggleComplete ? "line-through" : "none" }}>{todo.text}</span>
+                            <span style={{ marginLeft: "8px", textDecoration: todo.completed ? "line-through" : "none" }}>{todo.text}</span>
                         </li>
                     ))}
                 </ul>
