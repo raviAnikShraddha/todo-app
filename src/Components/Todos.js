@@ -13,16 +13,16 @@ class Todos extends Component {
         });
     };
     addTodo = () => {
-        if (this.state.task === "") {
-            alert("❌ Please enter a task!")
+        if (this.state.task.trim() === "") {
+            alert("Please enter a task!")
             return;
         }
-        const newTodo = { text: this.state.task, completed: false }
+        const newTodo = { text: this.state.task.trim(), completed: false }
         this.setState((prevSate) => ({
             todos: [...prevSate.todos, newTodo],
             task: ""
         }));
-        alert("✅ Task added successfully!");
+        alert("Task added successfully!");
     };
     toggleComplete = (index) => {
         const todos = [...this.state.todos];
@@ -34,7 +34,10 @@ class Todos extends Component {
             container: {
                 textAlign: "center",
                 marginTop: "50px",
-                fontFamily: "Arial, sans-serif"
+                fontFamily: "Arial, sans-serif",
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "column",
             },
             title: {
                 color: "purple"
@@ -53,10 +56,16 @@ class Todos extends Component {
             list: {
                 marginTop: "20px",
                 listStyle: "none",
-                padding: 0
+                padding: 0,
+                display: "flex",
+                flexDirection: "column",
+                alignSelf: "flex-start",
+                width: "fit-content",
             },
             listItem: {
-                marginBottom: "10px"
+                marginBottom: "10px",
+                display: "flex",
+                alignItems: "center"
             }
         }
         return (
@@ -69,14 +78,16 @@ class Todos extends Component {
                     <button onClick={this.addTodo} style={styles.button}>Add</button>
                 </div>
                 {/* Todo List */}
-                <ul style={styles.list}>
-                    {this.state.todos.map((todo, index) => (
-                        <li key={index} style={styles.listItem}>
-                            <input type="checkbox" checked={todo.completed} onChange={() => this.toggleComplete(index)} />
-                            <span style={{ marginLeft: "8px", textDecoration: todo.completed ? "line-through" : "none" }}>{todo.text}</span>
-                        </li>
-                    ))}
-                </ul>
+                <div>
+                    <ol style={styles.list}>
+                        {this.state.todos.map((todo, index) => (
+                            <li key={index} style={styles.listItem}>
+                                <input type="checkbox" checked={todo.completed} onChange={() => this.toggleComplete(index)} />
+                                <span style={{ marginLeft: "8px", textDecoration: todo.completed ? "line-through" : "none" }}>{todo.text}</span>
+                            </li>
+                        ))}
+                    </ol>
+                </div>
             </div>
         );
     }
